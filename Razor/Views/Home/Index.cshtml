@@ -2,7 +2,115 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <div class="container">
+        <h1>Esercizi Razor Lorenzo Miccio</h1>
+        <ol>
+            <!--Esercizio 1-->
+            <li>
+                <p>
+                    Dichiarare una variabile valorizzandola con il nostro nome.
+                    Dichiarare un'altra variabile valorizzandola con il nostro cognome.
+                    Stampare il nostro nome e cognome all'interno di un tag h2.
+                </p>
+                @{
+                    string nome = "Lorenzo";
+                    string cognome = "Miccio";
+                }
+                <h2>@nome @cognome</h2>
+            </li>
+            <!--Esercizio 2-->
+            <li>
+                <p>
+                    Creare una funzione che stampa la somma dei numeri che vanno da 1 a n (con n passato come parametro - n incluso)
+                    Stampare dentro uno span il risultato.
+                </p>
+                @{
+                    int StampaSommaNumeriDa1AdN(int numeroMassimo)
+                    {
+                        int somma = 0;
+                        for(int i = 1; i <= numeroMassimo; i++)
+                        {
+                            somma += i;
+                        }
+                        return somma;
+                    }
+                }
+                @{
+                    int numeroMassimo = 10;
+                }
+                <p>La somma dei numeri da 1 a @numeroMassimo è: @StampaSommaNumeriDa1AdN(@numeroMassimo)</p>
+            </li>
+            <!--Esercizio 3-->
+            <li>
+                <p>
+                    Contare quante volte la lettera a è presente nalla frase "nel mezzo del cammin di nostra vita" e stampare questo valore in pagina
+                </p>
+                @{
+                    int ContaLetterePresenti(char letteraDaContare, string fraseInCuiContareLaLettera)
+                    {
+                        int numeroPresenzaLettera = 0;
+                        fraseInCuiContareLaLettera = fraseInCuiContareLaLettera.ToLower();
+                        char[] caratteri = fraseInCuiContareLaLettera.ToCharArray();
+                        for (int i = 0; i < fraseInCuiContareLaLettera.Length; i++)
+                        {
+                            if(letteraDaContare == caratteri[i])
+                            {
+                                numeroPresenzaLettera++;
+                            }
+                        }
+                        return numeroPresenzaLettera;
+                    }
+                }
+                @{
+                    char lettera = 'a';
+                    string frase = "nel mezzo del cammin di nostra vita";
+                }
+                <p>La lettera "<b>@lettera</b>" è presente nella frase "<b>@frase</b>" @ContaLetterePresenti(lettera, frase) volte.</p>
+            </li>
+            <!--Esercizio 4-->
+            <li>
+                <p>Creare una List<.int> di 20 numeri interi (generati random da 1 a 90, 1 e 90 inclusi) e mostrare in pagina solo i numeri compresi tra 20 e 70</p>
+                @{
+                    List<int> listaDi20Interi = new List<int>();
+                    Random random = new Random();
+                    for (int i = 0; i < 20; i++)
+                    {
+                        listaDi20Interi.Add(random.Next(1, 91));
+                    }
+                }
+                <p>I numeri compresi tra 20 e 70 (estremi inclusi) sono:</p>
+                <ol>
+                    @foreach(int numero in listaDi20Interi)
+                    {
+                        if(numero >= 20 & numero <= 70)
+                        {
+                            <li>@numero</li>
+                        }
+                    }
+                </ol>
+            </li>
+            <!--Esercizio 5-->
+            <li>
+                <p>Stampare in pagina la data e l'ora attuale (usando la classe DateTime) con il formato anno-mese-giorno ore:minuti:secondi</p>
+                @{
+                    DateTime dataDiOggi = DateTime.Now;
+                }
+                <p>@dataDiOggi.ToString("yyyy-MM-dd hh:mm:ss")</p>
+            </li>
+            <!--Esercizio 6-->
+            <li>
+                @{
+                  var culture = new System.Globalization.CultureInfo("it-IT");
+                }
+                <p>Partendo dalla data di oggi (usando la classe DateTime) stampare in pagina:</p>
+                <ol style="list-style-type:lower-alpha">
+                    <li>La data di 7 giorni fa: <em>@dataDiOggi.AddDays(-7).ToString("dd/MM/yyyy")</em></li>
+                    <li>Che giorno della settimana è oggi: <em>@dataDiOggi.ToString("dddd", culture)</em></li>
+                    <li>che giorno della settimana sarà nello stesso giorno e mese di oggi ma tra un anno: <em>@dataDiOggi.AddYears(1).ToString("dddd", culture)</em></li>
+                </ol>
+            </li>
+        </ol>    
+    </div>
+    
 </div>
